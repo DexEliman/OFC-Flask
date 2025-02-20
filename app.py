@@ -40,7 +40,7 @@ class Commande(db.Model):
     date = db.Column(db.DateTime, nullable=False, default=datetime.now())
 
 class Recu(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     ref_commande = db.Column(db.String(5), nullable=False)
     prix_total = db.Column(db.Float, nullable=False)
     date = db.Column(db.DateTime, nullable=False, default=datetime.now())
@@ -73,8 +73,33 @@ def login():
     return render_template('login.html')
 
 
-@app.route('/sign_in')
+@app.route('/sign_in', methods=['GET', 'POST'])
 def sign_in():
+    return render_template('sign_in.html')
+    if request.method == 'POST':
+        name = request.form.get('name')
+        location = request.form.get('location')
+        email = request.form.get('email')
+        password = request.form.get('password')
+
+        # Vérifier si l'email existe déjà
+        existing_user = User.query.filter_by(email=email).first()
+        if existing_user:
+            return render_template('sign_in.html', error="Cet email est déjà utilisé.")
+
+        # Hacher le mot de passe avant de l'enregistrer
+        hashed_password = generate_password_hash(password)
+
+        # Créer un nouvel utilisateur
+        new_user = User(name=name, location=location, email=email, password=hashed_password)
+        db.session.add(new_user)
+        db.session.commit()
+
+        # Sauvegarder l'ID de l'utilisateur dans la session
+        session['user_id'] = new_user.id
+
+        return redirect(url_for('menu'))  # Redirection après inscription
+
     return render_template('sign_in.html')
 
 
@@ -236,7 +261,7 @@ def validate_cart():
     prix_total = sum(item['prix'] for item in cart_items)
 
     # Création du Reçu
-    new_recu = Recu(ref_commande=ref_commande, prix_total=prix_total, id=user_id)
+    new_recu = Recu(ref_commande=ref_commande, prix_total=prix_total)
     db.session.add(new_recu)
     
     # Ajouter chaque produit dans la table Commande
