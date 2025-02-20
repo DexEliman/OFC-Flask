@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Nos Desserts</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+    <div class="product-container">
+        <h1>Nos Desserts</h1>
+        <div class="product-list">
+            {% for x in dessert %}
+            <div class="product-item">
+                <div class="product-info">
+                    <h2>{{ x.nom }}</h2>
+                    <p>{{ x.description }}</p>
+                </div>
+                <div class="product-price">
+                    <span>{{ x.prix }}€</span>
+                    <a href="{{ url_for('add_to_cart', product_id=x.id) }}" class="btn-add">Ajouter</a>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        <a href="{{ url_for('menu') }}" class="btn-primary">Retour au menu</a>
+    </div>
+</body>
+
+</html>

@@ -1,20 +1,36 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login - OFC Original Fried Chicken</title>
+    <title>Login</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
-    <h1>Login</h1>
-    <form action="/login" method="post">
-        <label for="username">Username:</label>
-        <input type="text" id="username" name="username" required>
-        <label for="password">Password:</label>
-        <input type="password" id="password" name="password" required>
-        <button type="submit">Login</button>
-    </form>
-    <p>Don't have an account? <a href="/signup">Sign up here</a></p>
+    <div class="page-container">
+        <div class="framed-container">
+
+            <h2 class="form-title">Welcome Back</h2>
+
+            <form method="POST" action="{{ url_for('login') }}" class="auth-form">
+
+                <div class="form-group">
+                    <label for="email">Email Address</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" name="password" required>
+                </div>
+                
+                <button type="submit" class="btn btn-primary btn-block">Login</button>
+
+            </form>
+            
+            <div class="auth-links">
+
+                Don't have an account? <a href="{{ url_for('sign_in') }}">Sign up here</a>
+            </div>
+        </div>
+    </div>
 </body>
 </html>

@@ -3,18 +3,33 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Receipts - OFC Original Fried Chicken</title>
+    <title>Reçus - OFC Original Fried Chicken</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
-    <h1>Your Receipts</h1>
-    <ul>
-        <li>Receipt #1 - $20.00</li>
-        <li>Receipt #2 - $15.00</li>
-    </ul>
+    <h2>Vos reçus</h2>
+<table class=".enhanced-table">
+    <tr>
+        <th>Référence</th>
+        <th>Prix Total</th>
+        <th>Date</th>
+        <th>Actions</th>
+    </tr>
+    {% for recu in receipts %}
+    <tr>
+        <td>{{ recu.ref_commande }}</td>
+        <td>{{ recu.prix_total }} €</td>
+        <td>{{ recu.date.strftime('%d/%m/%Y %H:%M') }}</td>
+        <td><a href="{{ url_for('receipt_details', ref_commande=recu.ref_commande) }}">Voir détails</a></td>
+    </tr>
+    {% endfor %}
+</table>
+
+
     <nav>
-        <a href="{{ url_for('home') }}">Home</a>
-        <a href="{{ url_for('order_status') }}">Order Status</a>
+        <a href="{{ url_for('home') }}" class="btn btn-secondary">Accueil</a>
+        <a href="{{ url_for('menu') }}" class="btn btn-secondary">Nouvelle Commande</a>
     </nav>
+
 </body>
 </html>

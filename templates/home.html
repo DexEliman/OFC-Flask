@@ -1,19 +1,23 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home - OFC Original Fried Chicken</title>
+    <title>Home</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
+
 <body>
-    <h1>Welcome to OFC Original Fried Chicken</h1>
-    <nav>
-        <a href="{{ url_for('login') }}">Login</a>
-        <a href="{{ url_for('menu') }}">Menu</a>
-        <a href="{{ url_for('cart') }}">Cart</a>
-        <a href="{{ url_for('receipt') }}">Receipts</a>
-        <a href="{{ url_for('order_status') }}">Order Status</a>
-    </nav>
+    <div class="home-allign">
+        <div class="home-container">
+            <h1 class="main-title">OFC</h1>
+            <img src="{{ url_for('static', filename='image/logo.png') }}" alt="OFC Logo" class="logo">
+            <p class="slogan">"Le goût du poulet, l'art de la friture"</p>
+            <div class="nav-links">
+                <a href="{{ url_for('sign_in') }}" class="btn btn-primary">Sign Up</a>
+                <a href="{{ url_for('login') }}" class="btn btn-primary">Login</a>
+            </div>
+        </div>
+    </div>
 </body>
+
 </html>

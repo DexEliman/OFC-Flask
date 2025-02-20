@@ -1,27 +1,34 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cart - OFC Original Fried Chicken</title>
+    <title>Mon Panier</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
-    <h1>Your Cart</h1>
-    <ul>
-        <li>Chicken Sandwich - $5.00</li>
-        <li>Fried Chicken Bucket - $15.00</li>
-    </ul>
-    <p>Total: $20.00</p>
-    <button onclick="checkout()">Checkout</button>
-    <script>
-        function checkout() {
-            alert("Proceeding to checkout!");
-        }
-    </script>
-    <nav>
-        <a href="{{ url_for('menu') }}">Back to Menu</a>
-        <a href="{{ url_for('receipt') }}">Receipts</a>
-    </nav>
+    <div class="container">
+        <h1>Mon Panier</h1>
+        {% if cart_items %}
+            <ul class="cart-list">
+                {% for item in cart_items %}
+                    <li class="cart-item">
+                        <span class="cart-name">{{ item.nom }}</span>
+                        <span class="cart-price">{{ item.prix }}€</span>
+                        <a href="{{ url_for('remove_from_cart', product_id=item.id) }}" class="btn-remove">Give up</a>
+                    </li>
+                {% endfor %}
+            </ul>
+            <h2>Total : {{ total_price }}€</h2>
+            <a href="{{ url_for('clear_cart') }}" class="btn-clear">Vider le panier</a>
+            <a href="{{ url_for('validate_cart') }}" class="btn-confirm">Valider le panier</a>
+
+        {% else %}
+            <p>Votre panier est vide.</p>
+        {% endif %}
+        <a href="{{ url_for('menu') }}" class="btn-primary">Retour aux Menu</a>
+    </div>
+
+  
 </body>
 </html>

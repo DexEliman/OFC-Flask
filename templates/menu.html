@@ -7,22 +7,37 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
-    <h1>Menu</h1>
-    <ul>
-        <li>Chicken Sandwich</li>
-        <li>Fried Chicken Bucket</li>
-        <li>French Fries</li>
-        <li>Soft Drinks</li>
-    </ul>
-    <button onclick="addToCart()">Add to Cart</button>
-    <script>
-        function addToCart() {
-            alert("Item added to cart!");
-        }
-    </script>
-    <nav>
-        <a href="{{ url_for('home') }}">Home</a>
-        <a href="{{ url_for('cart') }}">Cart</a>
-    </nav>
+    <header>
+        <nav>
+            <a href="{{ url_for('menu') }}">Menu</a>
+            <a href="{{ url_for('cart') }}">Panier</a>
+            <a href="{{ url_for('user_receipts') }}">Mes Reçus</a>
+            <a href="{{ url_for('home') }}">Disconnect</a>
+        </nav>
+    </header>
+    
+    <div class="menu-container">
+        <h1>Menu</h1>
+        <p class="greeting">Bonjour</p>
+        <p class="question">Prêt à manger ?</p>
+        <div class="menu-grid">
+            <div class="menu-item">
+                <img src="{{ url_for('static', filename='image/poulet.png') }}" alt="Poulet">
+                <h2><a href="{{ url_for('menu_poulet') }}">Nos Poulets</a></h2>
+            </div>
+            <div class="menu-item">
+                <img src="{{ url_for('static', filename='image/salade.png') }}" alt="Salade">
+                <h2><a href="{{ url_for('menu_salade') }}">Nos Salades</a></h2>
+            </div>
+            <div class="menu-item">
+                <img src="{{ url_for('static', filename='image/boisson.png') }}" alt="Boisson">
+                <h2><a href="{{ url_for('menu_boisson') }}">Nos Boissons</a></h2>
+            </div>
+            <div class="menu-item">
+                <img src="{{ url_for('static', filename='image/dessert.png') }}" alt="Dessert">
+                <h2><a href="{{ url_for('menu_dessert') }}">Nos Desserts</a></h2>
+            </div>
+        </div>
+    </div>
 </body>
 </html>

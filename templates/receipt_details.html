@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reçus - OFC Original Fried Chicken</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+    <div class = page-container>
+        <h2>Détails du reçu : {{ recu.ref_commande }}</h2>
+        <p>Total payé : {{ recu.prix_total }} €</p>
+        <p>Date : {{ recu.date.strftime('%d/%m/%Y %H:%M') }}</p>
+        
+        <h3>Produits achetés :</h3>
+        <table>
+            <tr>
+                <th>Nom du produit</th>
+                <th>Prix</th>
+            </tr>
+            {% for item in commandes %}
+            <tr>
+                <td>{{ item.nom_produit }}</td>
+                <td>{{ item.prix }} €</td>
+            </tr>
+            {% endfor %}
+        </table>
+        
+        <a href="{{ url_for('user_receipts') }}"><button>Retour aux reçus</button></a>
+
+    </div>
+    
+</body>
+
+</html>
